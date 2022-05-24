@@ -1,0 +1,7 @@
+1.0.1: First version of User
+1.0.2: Extended user fields
+1.0.3:
+    - Company fields
+1.0.7:
+    - Removed company and shipping columns
+    - user_remove_shipping_company_columns.php

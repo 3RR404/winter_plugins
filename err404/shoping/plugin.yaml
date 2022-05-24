@@ -1,0 +1,6 @@
+plugin:
+    name: 'err404.shoping::lang.plugin.name'
+    description: 'err404.shoping::lang.plugin.description'
+    author: Err404
+    icon: oc-icon-book
+    homepage: ''

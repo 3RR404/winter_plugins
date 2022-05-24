@@ -1,0 +1,28 @@
+1.0.1: First version of Shoping
+1.0.2:
+  - seed_brand_table.php
+  - seed_category_table.php
+  - seed_product_table.php
+1.0.3: product property added to resource
+1.2.2:
+    - Removed CustomDimension - was moved as new plugin for app
+    - rename_custom_dimensions_tables.php
+1.2.3:
+    - Added price for Payment methods
+    - UpdatePaymentMethodsTable.php
+1.2.7:
+    - Added company fields (companyName, ico, dic, icdph) into table `users`
+    - Added company column into shopaholic carts table
+    - user_add_company_fields.php
+    - add_company_column_cart_table.php
+1.2.8:
+    - Added payment_price column for shopaholic orders table
+    - AddPaymentPriceColumnOrdersTable.php
+1.2.9:
+    - Added company order additional fields
+    - seeder_company_order_properties.php
+1.3.0:
+    - Updated user last_name field to surname in additional order fields
+    - UpdateOrderAdditionalFields.php
+1.3.3:
+    - UpdateUserAddressTable.php

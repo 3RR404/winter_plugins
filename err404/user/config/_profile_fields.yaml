@@ -1,0 +1,15 @@
+companyName:
+    label: Company name
+    tab: Company
+ico:
+    label: ICO
+    tab: Company
+    span: left
+dic:
+    label: DIC
+    tab: Company
+    span: right
+icdph:
+    label: IC DPH
+    tab: Company
+    span: left

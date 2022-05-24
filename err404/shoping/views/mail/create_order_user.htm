@@ -1,0 +1,279 @@
+subject = "Nová objednávka {{order_number}}"
+description = "User notification about new order"
+==
+<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%">
+    <tr>
+        <td>
+            <!-- Inner whole table -->
+            <table cellpadding="0" cellspacing="0" border="0" align="center" width="650">
+                <tr>
+                    <td>
+                        <!-- Header section -->
+                        <table cellpadding="0" cellspacing="0" border="0" align="center" width="650">
+                            <tr>
+                                <td
+                                    style="text-align: center; background-color: #4F9A95; font-family: Arial, Helvetica, sans-serif; font-size: 16px; color: #ffffff; padding: 10px 0 10px 0;">
+                                    <p>{{ order_number }}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <!-- Top Content -->
+                        <table cellpadding="0" cellspacing="0" border="0" align="center" width="650"
+                               style="background-color: #F2FFFF; text-align: center;">
+                            <tr>
+                                <td style="padding: 50px 0 0 0;">
+                                    <h1
+                                        style="margin: 0 0 0 0; font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 25px; color: #262626">
+                                        Vaša objednávka prebehla úspešne
+                                    </h1>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 20px 50px 20px 50px;">
+                                    <p
+                                        style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #262626; line-height: 1.5; margin: 0 0 0 0;">
+                                        {{order.property.name}} {{order.property.surname}},
+                                        Vašu objednávku sme zaregistrovali a v čo najkratšom čase ju
+                                        spracujeme. O ďalšom priebehu Vás budeme informovať.
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p
+                                        style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #262626; margin: 0 0 0 0; padding-bottom: 30px;">
+                                        Ďakujeme za prejavenú dôveru.
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding-bottom: 50px;">
+                                    <a href="{{site_url}}/order/{{order.secret_key}}"
+                                       style="height: 44px; display: inline-block; padding: 0 35px 0 35px;background-color: #39435C; line-height: 44px; border-radius: 10px; text-decoration: none; color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px;">
+                                        Detail objednávky
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 30px 0 15px 0; border-bottom: 1px solid #707070;">
+                        <!-- Order Items-->
+                        <table cellpadding="0" cellspacing="0" border="0" align="center" width="650">
+                            <tr>
+                                <td
+                                    style="padding-left: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px; color: #262626; width: 200px;">
+                                    Názov</td>
+                                <td
+                                    style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px; color: #262626; text-align: center;">
+                                    Počet</td>
+                                <td
+                                    style="padding-right: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px; color: #262626; text-align: right;">
+                                    Cena</td>
+                            </tr>
+
+                            {% for product in order_position %}
+                            <tr>
+                                <td style="font-family: Arial, Helvetica, sans-serif; padding: 14px 0 14px 20px; font-size:15px; color: #262626">
+                                    {{product.name}}
+                                </td>
+                                <td style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-size:15px; color: #262626">
+                                    {{product.quantity}} {{product.measure}}</td>
+                                <td style="font-family: Arial, Helvetica, sans-serif; text-align: right; padding-right: 20px; font-size:15px; color: #262626">
+                                    {{product.price_value}} €
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td style="border-bottom: 1px solid #707070; padding: 30px 0 20px 0;">
+                        <!-- Order Subtotal -->
+                        <table cellpadding="0" cellspacing="0" border="0" align="center" width="650">
+                            <tr>
+                                <td
+                                    style="padding-left: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px; color: #262626; width: 80%;">
+                                    Spolu</td>
+                                <td
+                                    style="padding-right: 20px; text-align: right;font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #262626;">
+                                    {{order.position_total_price_value}} €</td>
+                            </tr>
+
+                            <tr>
+                                <td
+                                    style="padding:10px 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px; color: #262626; width: 80%;">
+                                    Poštovné a balné</td>
+                                <td
+                                    style="padding-right: 20px; text-align: right;font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #262626;">
+                                    {% if (shipping_type) and (payment_method) %}
+                                    {{ shipping_type.price_value + payment_method.price_value }} €</td>
+                                    {% endif %}
+                            </tr>
+
+                            <tr>
+                                <td
+                                    style="padding:10px 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 18px; color: #262626; width: 80%;">
+                                    Celkom</td>
+                                <td
+                                    style="padding-right: 20px; text-align: right;font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 18px; color: #262626;">
+                                    {{ order.total_price_value }} €</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <!-- Order Info -->
+                        <table cellpadding="0" cellspacing="0" border="0" align="center" width="650">
+                            <tr>
+                                <td style="text-align: center; padding-top: 15px;" colspan="3">
+                                    <h2
+                                        style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 17px; color: #262626;">
+                                        Informácie o objednávke a dodacie údaje
+                                    </h2>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td
+                                    style="width: 45%; padding: 0 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626;font-weight: 700;">
+                                    Číslo objednávky
+                                </td>
+                                <td
+                                    style="width: 35%; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                    {{order_number}}</td>
+                            </tr>
+
+                            <tr>
+                                <td
+                                    style="width: 45%; padding: 0 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626;font-weight: 700;">
+                                    Spôsob dopravy
+                                </td>
+                                <td
+                                    style="width: 35%; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                    {% if shipping_type %}
+                                        {{shipping_type.name}}
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td
+                                    style="width: 45%; padding: 0 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626;font-weight: 700;">
+                                    Dátum objednávky
+                                </td>
+                                <td
+                                    style="width: 35%; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                    {{order.created_at|date("d. m. Y H:i")}}</td>
+                            </tr>
+
+                            <tr>
+                                <td
+                                    style="width: 45%; padding: 0 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626;font-weight: 700;">
+                                    Spôsob platby
+                                </td>
+                                <td
+                                    style="width: 35%; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                    {% if payment_method %}
+                                        {{payment_method.name}}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 15px; width: 100%" colspan="3">
+                                    <table style="width:100%">
+                                        <tbody>
+                                        <tr>
+                                            <td
+                                                style="width: 45%; padding: 0 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626;font-weight: 700;">
+                                                Fakturačná adresa
+                                            </td>
+                                            <td
+                                                style="width: 45%; padding: 0 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626;font-weight: 700;">
+                                                Dodacia adresa
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="width: 35%; padding: 0 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                                {{order.property.name}} {{order.property.surname}}
+                                            </td>
+                                            <td
+                                                style="width: 35%; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                                {{order.property.name}} {{order.property.surname}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="width: 35%; padding: 0 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                                {{order.property.billing_address1}}
+                                                {{order.property.billing_address2}}
+                                            </td>
+                                            <td style="width: 35%; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                                {{order.property.shipping_address1}}
+                                                {{order.property.shipping_address2}}
+                                            </td>
+                                        <tr>
+                                            <td style="width: 35%; padding: 0 0 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                                {{order.property.billing_city}}
+                                                {{order.property.billing_postcode}}
+                                            </td>
+                                            <td style="width: 35%; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626">
+                                                {{order.property.shipping_city}}
+                                                {{order.property.shipping_postcode}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding-top: 20px;">
+                        <!-- Footer -->
+                        <table cellpadding="0" cellspacing="0" border="0" align="center" width="650"
+                               style="text-align: center;">
+                            <tr>
+                                <td style="background-color: #F2FFFF; padding: 20px 100px 20px 100px;">
+                                    <p
+                                        style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #262626; line-height: 1.4;">
+                                        V Impresspic sme Vám k dispozícii na telefónnom čísle
+                                        <strong></strong> alebo nás
+                                        kontaktujte emailom na <a href="#"
+                                                                  style="color: #262626; font-style: italic;">.</a>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="background-color: #4F9A95; padding: 15px 0 15px 0;">
+                                    <p
+                                        style="margin: 0 0 0 0; color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px;">
+                                        </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
